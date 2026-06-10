@@ -1,3 +1,15 @@
+---
+title: Parallel Life Engine
+emoji: "M"
+colorFrom: amber
+colorTo: red
+sdk: gradio
+sdk_version: 6.17.3
+python_version: "3.12"
+app_file: app.py
+pinned: false
+---
+
 # Parallel Life Engine
 
 Parallel Life Engine is a Build Small hackathon concept turned into a working repo scaffold: upload one portrait, give one life-fork sentence, and generate a decade-by-decade alternate-life scrapbook with memoir text, timeline traces, portraits, and a standalone keepsake export.
