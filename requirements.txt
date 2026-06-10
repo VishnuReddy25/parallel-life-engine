@@ -11,3 +11,4 @@ accelerate>=1.8.0
 safetensors>=0.5.0
 sentencepiece>=0.2.0
 diffusers>=0.34.0
+torchvision>=0.20.0

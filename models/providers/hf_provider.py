@@ -143,8 +143,8 @@ class LocalModelRuntime:
 
     def _model_kwargs(self) -> dict[str, Any]:
         kwargs: dict[str, Any] = {"low_cpu_mem_usage": SETTINGS.hf_low_cpu_mem_usage}
-        if self._device == "cuda":
-            kwargs["torch_dtype"] = self._dtype
+        if self.device == "cuda":
+            kwargs["torch_dtype"] = self.dtype
         return kwargs
 
     def _load_vision(self) -> LoadedArtifact:
@@ -163,7 +163,7 @@ class LocalModelRuntime:
             ),
             label="vision model",
         )
-        _move_to_device(model, self._device)
+        _move_to_device(model, self.device)
         return LoadedArtifact(task="vision", model=model, aux=processor)
 
     def _load_asr(self) -> LoadedArtifact:
@@ -172,8 +172,8 @@ class LocalModelRuntime:
             task="automatic-speech-recognition",
             model=SETTINGS.hf_asr_model,
             token=SETTINGS.hf_token,
-            device=0 if self._device == "cuda" else -1,
-            torch_dtype=self._dtype if self._device == "cuda" else None,
+            device=0 if self.device == "cuda" else -1,
+            torch_dtype=self.dtype if self.device == "cuda" else None,
         )
         return LoadedArtifact(task="asr", model=pipeline)
 
@@ -185,7 +185,7 @@ class LocalModelRuntime:
             token=SETTINGS.hf_token,
             **self._model_kwargs(),
         )
-        _move_to_device(model, self._device)
+        _move_to_device(model, self.device)
         return LoadedArtifact(task="narrative", model=model, aux=tokenizer)
 
     def _load_structure(self) -> LoadedArtifact:
@@ -196,7 +196,7 @@ class LocalModelRuntime:
             token=SETTINGS.hf_token,
             **self._model_kwargs(),
         )
-        _move_to_device(model, self._device)
+        _move_to_device(model, self.device)
         return LoadedArtifact(task="structure", model=model, aux=tokenizer)
 
     def _load_portraits(self) -> LoadedArtifact:
@@ -214,7 +214,7 @@ class LocalModelRuntime:
             ),
             label="portrait pipeline",
         )
-        _move_to_device(pipeline, self._device)
+        _move_to_device(pipeline, self.device)
         if hasattr(pipeline, "set_progress_bar_config"):
             pipeline.set_progress_bar_config(disable=True)
         return LoadedArtifact(task="portraits", model=pipeline)

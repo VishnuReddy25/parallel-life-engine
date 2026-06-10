@@ -47,9 +47,9 @@ The repo now has an explicit runtime contract in [settings.py](C:/Users/vishn/On
 The `hf` model provider is now wired for local Hugging Face Space execution that defaults to:
 
 - `openbmb/MiniCPM-V-4_6` for photo understanding
-- `nvidia/parakeet-tdt-0.6b-v2` for ASR
+- `openai/whisper-small` for ASR
 - `openbmb/MiniCPM5-1B` for memoir generation
-- `nvidia/Nemotron-Parse` for timeline extraction
+- `openbmb/MiniCPM5-1B` for timeline extraction
 - `black-forest-labs/FLUX.2-KONtext-klein` for portraits
 
 In `hf` mode, models are loaded inside the app process and run on the Space GPU. The loader is stage-oriented and unloads models between major steps to fit a single-GPU hackathon deployment.

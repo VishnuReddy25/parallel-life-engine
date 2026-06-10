@@ -13,9 +13,9 @@ class RuntimeSettings:
     hf_space_id: str | None = None
     hf_trace_dataset: str | None = None
     hf_vision_model: str = "openbmb/MiniCPM-V-4_6"
-    hf_asr_model: str = "nvidia/parakeet-tdt-0.6b-v2"
+    hf_asr_model: str = "openai/whisper-small"
     hf_narrative_model: str = "openbmb/MiniCPM5-1B"
-    hf_structure_model: str = "nvidia/Nemotron-Parse"
+    hf_structure_model: str = "openbmb/MiniCPM5-1B"
     hf_portrait_model: str = "black-forest-labs/FLUX.2-KONtext-klein"
     hf_device: str = "auto"
     hf_dtype: str = "auto"
@@ -35,9 +35,9 @@ def load_settings() -> RuntimeSettings:
         hf_space_id=os.getenv("PLE_HF_SPACE_ID"),
         hf_trace_dataset=os.getenv("PLE_HF_TRACE_DATASET"),
         hf_vision_model=os.getenv("PLE_HF_VISION_MODEL", "openbmb/MiniCPM-V-4_6"),
-        hf_asr_model=os.getenv("PLE_HF_ASR_MODEL", "nvidia/parakeet-tdt-0.6b-v2"),
+        hf_asr_model=os.getenv("PLE_HF_ASR_MODEL", "openai/whisper-small"),
         hf_narrative_model=os.getenv("PLE_HF_NARRATIVE_MODEL", "openbmb/MiniCPM5-1B"),
-        hf_structure_model=os.getenv("PLE_HF_STRUCTURE_MODEL", "nvidia/Nemotron-Parse"),
+        hf_structure_model=os.getenv("PLE_HF_STRUCTURE_MODEL", "openbmb/MiniCPM5-1B"),
         hf_portrait_model=os.getenv("PLE_HF_PORTRAIT_MODEL", "black-forest-labs/FLUX.2-KONtext-klein"),
         hf_device=os.getenv("PLE_HF_DEVICE", "auto").strip().lower() or "auto",
         hf_dtype=os.getenv("PLE_HF_DTYPE", "auto").strip().lower() or "auto",

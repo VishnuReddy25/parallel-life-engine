@@ -1,7 +1,7 @@
 ---
 title: Parallel Life Engine
-emoji: "M"
-colorFrom: amber
+emoji: "📖"
+colorFrom: yellow
 colorTo: red
 sdk: gradio
 pinned: false
@@ -50,6 +50,14 @@ This Space is designed to run as a Gradio Space in two modes:
 - `PLE_MODEL_PROVIDER=hf` for true off-grid Space inference on the attached GPU
 
 In `hf` mode, the app loads the selected models inside the Space process and unloads them between stages. No inference API calls are required.
+
+Current local-first default stack:
+
+- `openbmb/MiniCPM-V-4_6` for image understanding
+- `openai/whisper-small` for ASR
+- `openbmb/MiniCPM5-1B` for memoir generation
+- `openbmb/MiniCPM5-1B` for structure extraction
+- `black-forest-labs/FLUX.2-KONtext-klein` for portraits
 
 Recommended Space settings:
 
