@@ -219,138 +219,156 @@ def _write_temp_html(html: str | None) -> str | None:
 
 CUSTOM_CSS = """
 :root {
-  --ple-paper: #f6efe2;
-  --ple-ink: #231815;
-  --ple-muted: #6c564d;
-  --ple-rust: #9f4f35;
-  --ple-gold: #c9963b;
-  --ple-shadow: rgba(31, 20, 17, 0.16);
+  --ple-paper: #f4ead8;
+  --ple-paper-deep: #ead8bc;
+  --ple-ink: #1f1713;
+  --ple-muted: #5f4e46;
+  --ple-rust: #90472f;
+  --ple-rust-deep: #6e3523;
+  --ple-gold: #d08a22;
+  --ple-panel: rgba(255, 250, 243, 0.94);
+  --ple-panel-strong: rgba(255, 248, 238, 0.98);
+  --ple-line: rgba(107, 71, 44, 0.14);
+  --ple-shadow: rgba(31, 20, 17, 0.14);
+  --ple-well: #2a2422;
+  --ple-well-soft: #3a312e;
 }
 
 body, .gradio-container {
   background:
-    radial-gradient(circle at top left, rgba(243, 211, 167, 0.45), transparent 32%),
-    radial-gradient(circle at top right, rgba(178, 99, 62, 0.18), transparent 28%),
-    linear-gradient(180deg, #f5ecdc 0%, #efe2cf 55%, #ead9c3 100%);
+    radial-gradient(circle at top left, rgba(232, 184, 112, 0.34), transparent 28%),
+    radial-gradient(circle at top right, rgba(171, 89, 52, 0.16), transparent 22%),
+    linear-gradient(180deg, #f7efdf 0%, #f0e1c8 52%, #ead6b8 100%);
   color: var(--ple-ink);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif !important;
 }
 
 .gradio-container {
-  max-width: 1320px !important;
-  padding-top: 18px !important;
+  max-width: 1380px !important;
+  padding: 28px 20px 36px !important;
 }
 
 #ple-shell {
-  background: rgba(255, 251, 245, 0.64);
-  border: 1px solid rgba(128, 89, 57, 0.14);
-  border-radius: 28px;
-  box-shadow: 0 24px 80px var(--ple-shadow);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.48), rgba(255,255,255,0.2)),
+    rgba(248, 239, 225, 0.72);
+  border: 1px solid rgba(128, 89, 57, 0.12);
+  border-radius: 32px;
+  box-shadow: 0 28px 90px var(--ple-shadow);
   overflow: hidden;
 }
 
 .ple-hero {
-  padding: 44px 44px 28px;
+  padding: 56px 54px 36px;
   background:
-    linear-gradient(135deg, rgba(74, 40, 26, 0.92), rgba(140, 66, 40, 0.86)),
-    linear-gradient(180deg, rgba(255,255,255,0.08), transparent);
+    radial-gradient(circle at top left, rgba(255, 211, 143, 0.14), transparent 24%),
+    linear-gradient(135deg, rgba(62, 31, 20, 0.97), rgba(142, 71, 42, 0.9));
   color: #fff9f0;
 }
 
 .ple-kicker {
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 11px;
+  letter-spacing: 0.24em;
+  font-size: 10px;
   opacity: 0.82;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .ple-hero h1 {
   margin: 0;
-  font-size: 54px;
-  line-height: 0.95;
+  font-size: 64px;
+  line-height: 0.92;
   font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .ple-hero p {
   max-width: 760px;
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.65;
   color: rgba(255, 247, 237, 0.88);
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .ple-band {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
 .ple-chip {
-  padding: 10px 14px;
+  padding: 10px 15px;
   border-radius: 999px;
-  background: rgba(255, 249, 240, 0.12);
-  border: 1px solid rgba(255, 249, 240, 0.16);
+  background: rgba(255, 249, 240, 0.1);
+  border: 1px solid rgba(255, 249, 240, 0.18);
   font-size: 12px;
+  color: #fff2e5;
 }
 
 .ple-section {
-  padding: 28px 32px 8px;
+  padding: 26px 30px 10px;
 }
 
 .ple-card {
-  background: rgba(255, 250, 242, 0.92);
-  border: 1px solid rgba(130, 89, 56, 0.12);
-  border-radius: 22px;
-  box-shadow: 0 16px 40px rgba(72, 41, 27, 0.08);
+  background: var(--ple-panel);
+  border: 1px solid var(--ple-line);
+  border-radius: 26px;
+  box-shadow: 0 18px 48px rgba(72, 41, 27, 0.07);
+  backdrop-filter: blur(8px);
 }
 
 .ple-subhead {
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   color: var(--ple-rust);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 .ple-title {
-  font-size: 28px;
-  line-height: 1.05;
-  margin: 0 0 10px;
+  font-size: 40px;
+  line-height: 1.02;
+  margin: 0 0 12px;
   color: var(--ple-ink);
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
 .ple-blurb {
   color: var(--ple-muted);
-  line-height: 1.65;
+  line-height: 1.7;
   margin: 0;
+  font-size: 16px;
 }
 
 .gr-button-primary {
-  background: linear-gradient(135deg, #8d462d, #bc6e42) !important;
+  background: linear-gradient(135deg, var(--ple-rust-deep), #bf6a38) !important;
   border: none !important;
   color: #fff7f0 !important;
-  box-shadow: 0 14px 28px rgba(143, 74, 47, 0.22) !important;
+  box-shadow: 0 14px 28px rgba(143, 74, 47, 0.24) !important;
+  min-height: 48px !important;
+  font-weight: 700 !important;
 }
 
 .gr-button-primary:hover {
-  filter: brightness(1.04);
+  filter: brightness(1.05);
 }
 
 .gr-button-secondary, .gr-button {
-  border-radius: 14px !important;
+  border-radius: 16px !important;
 }
 
-.gr-box, .gr-panel, .gr-form, .gr-group {
+.gr-box, .gr-panel, .gr-form, .gr-group, .gradio-group {
   border-radius: 18px !important;
 }
 
 .ple-runtime, .ple-output {
-  padding: 20px;
+  padding: 26px;
 }
 
-.ple-output .prose, .ple-runtime .prose {
+.ple-output .prose, .ple-runtime .prose, .ple-card .prose, .ple-card .gr-markdown, .ple-card .gr-markdown *, .ple-card p, .ple-card h1, .ple-card h2, .ple-card h3, .ple-card h4, .ple-card label, .ple-card span, .ple-card textarea, .ple-card input {
   color: var(--ple-ink);
 }
 
@@ -358,10 +376,128 @@ body, .gradio-container {
   color: var(--ple-ink);
 }
 
+.ple-card textarea,
+.ple-card input,
+.ple-card .gr-textbox,
+.ple-card .gr-textbox textarea,
+.ple-card .gr-textbox input {
+  background: rgba(255, 249, 241, 0.96) !important;
+  color: var(--ple-ink) !important;
+  border: 1px solid rgba(121, 82, 54, 0.16) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+.ple-card .gr-textbox textarea::placeholder,
+.ple-card .gr-textbox input::placeholder {
+  color: rgba(95, 78, 70, 0.72) !important;
+}
+
+.ple-card .gradio-image,
+.ple-card .gradio-audio,
+.ple-card .gr-gallery,
+.ple-card .gr-file,
+.ple-card .gr-code,
+.ple-card .gr-accordion {
+  background: transparent !important;
+}
+
+.ple-card .image-container,
+.ple-card .audio-container,
+.ple-card .empty,
+.ple-card .wrap,
+.ple-card .file-preview,
+.ple-card .cm-editor,
+.ple-card .cm-scroller,
+.ple-card .gallery-container {
+  background: var(--ple-well) !important;
+  color: #f8efe5 !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius: 20px !important;
+}
+
+.ple-card .empty,
+.ple-card .image-container .placeholder,
+.ple-card .audio-container .placeholder {
+  color: #f7eee1 !important;
+}
+
+.ple-card button,
+.ple-card .icon-button {
+  border-radius: 14px !important;
+}
+
+.ple-card .label-wrap,
+.ple-card .block-title,
+.ple-card .gallery-header,
+.ple-card .accordion-header {
+  color: var(--ple-ink) !important;
+  font-weight: 700 !important;
+}
+
+.ple-card .gallery-item {
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+
+.ple-card .gallery-item img {
+  filter: saturate(0.94) contrast(1.02);
+}
+
+.ple-card .accordion-header {
+  background: var(--ple-well) !important;
+  color: #fff4e8 !important;
+}
+
+.ple-card .accordion-body {
+  background: rgba(248, 242, 234, 0.96) !important;
+}
+
+.ple-card .gr-markdown h2 {
+  font-size: 28px !important;
+  letter-spacing: -0.02em;
+}
+
+.ple-card .gr-markdown h3 {
+  font-size: 22px !important;
+}
+
+.ple-card .gr-markdown p,
+.ple-card .gr-markdown li {
+  color: var(--ple-ink) !important;
+  line-height: 1.72 !important;
+  font-size: 15px !important;
+}
+
+.ple-card .gr-markdown ul {
+  padding-left: 1.1rem !important;
+}
+
 .ple-footer-note {
-  padding: 0 32px 30px;
+  padding: 6px 34px 34px;
   color: var(--ple-muted);
   font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .gradio-container {
+    padding: 14px 10px 24px !important;
+  }
+
+  .ple-hero {
+    padding: 36px 24px 26px;
+  }
+
+  .ple-hero h1 {
+    font-size: 44px;
+  }
+
+  .ple-title {
+    font-size: 30px;
+  }
+
+  .ple-section {
+    padding: 18px 16px 8px;
+  }
 }
 """
 
