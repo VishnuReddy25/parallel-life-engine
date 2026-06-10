@@ -1,7 +1,7 @@
 ---
 title: Parallel Life Engine
-emoji: "M"
-colorFrom: amber
+emoji: "📖"
+colorFrom: yellow
 colorTo: red
 sdk: gradio
 sdk_version: 6.17.3
