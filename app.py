@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import base64
 import json
 import os
@@ -892,56 +893,73 @@ SPACE_THEME = (
 
 
 @spaces.GPU
-async def _run_for_gradio(photo: Image.Image | None, audio_path: str | None, fork_text: str | None):
+def _run_for_gradio(photo: Image.Image | None, audio_path: str | None, fork_text: str | None):
     audio_bytes = Path(audio_path).read_bytes() if audio_path else None
     state = LifeState(
         photo=photo.convert("RGB") if photo else None,
         voice_audio=audio_bytes,
         fork_text=(fork_text or "").strip() or None,
     )
-    final_state = state
-    async for snapshot in run_pipeline(state):
-        final_state = snapshot
-        payload = json.loads(_serialize_state(snapshot))
-        yield (
-            _render_progress_html(payload),
-            _render_metrics_html(payload),
-            _render_activity_html(payload),
-            payload.get("log") or "Listening for the next clue.",
-            payload.get("life_title") or "The Life Where I Turned",
-            payload.get("life_summary") or "A memoir of the choice that kept unfolding.",
-            payload.get("transcription") or "",
-            _runtime_markdown(),
-            _render_insights_html(payload),
-            _build_narrative_markdown(payload),
-            _timeline_markdown(payload.get("timeline") or []),
-            _build_gallery_items(payload),
-            _errors_markdown(payload.get("errors") or [], payload.get("portrait_failures") or []),
-            gr.update(value=_write_temp_html(payload.get("scrapbook_html")), visible=bool(payload.get("export_ready"))),
-            _saved_runs_markdown(),
-            json.dumps(payload, indent=2),
-        )
+    yield from _stream_pipeline_sync(state)
 
-    persist_run_artifacts(final_state)
-    final_payload = json.loads(_serialize_state(final_state))
-    yield (
-        _render_progress_html(final_payload),
-        _render_metrics_html(final_payload),
-        _render_activity_html(final_payload),
-        final_payload.get("log") or "Recovered memoir complete.",
-        final_payload.get("life_title") or "The Life Where I Turned",
-        final_payload.get("life_summary") or "A memoir of the choice that kept unfolding.",
-        final_payload.get("transcription") or "",
-        _runtime_markdown(),
-        _render_insights_html(final_payload),
-        _build_narrative_markdown(final_payload),
-        _timeline_markdown(final_payload.get("timeline") or []),
-        _build_gallery_items(final_payload),
-        _errors_markdown(final_payload.get("errors") or [], final_payload.get("portrait_failures") or []),
-        gr.update(value=_write_temp_html(final_payload.get("scrapbook_html")), visible=bool(final_payload.get("export_ready"))),
-        _saved_runs_markdown(),
-        json.dumps(final_payload, indent=2),
-    )
+
+def _stream_pipeline_sync(state: LifeState):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    final_state = state
+    stream = run_pipeline(state).__aiter__()
+
+    try:
+        while True:
+            try:
+                snapshot = loop.run_until_complete(stream.__anext__())
+            except StopAsyncIteration:
+                break
+
+            final_state = snapshot
+            payload = json.loads(_serialize_state(snapshot))
+            yield (
+                _render_progress_html(payload),
+                _render_metrics_html(payload),
+                _render_activity_html(payload),
+                payload.get("log") or "Listening for the next clue.",
+                payload.get("life_title") or "The Life Where I Turned",
+                payload.get("life_summary") or "A memoir of the choice that kept unfolding.",
+                payload.get("transcription") or "",
+                _runtime_markdown(),
+                _render_insights_html(payload),
+                _build_narrative_markdown(payload),
+                _timeline_markdown(payload.get("timeline") or []),
+                _build_gallery_items(payload),
+                _errors_markdown(payload.get("errors") or [], payload.get("portrait_failures") or []),
+                gr.update(value=_write_temp_html(payload.get("scrapbook_html")), visible=bool(payload.get("export_ready"))),
+                _saved_runs_markdown(),
+                json.dumps(payload, indent=2),
+            )
+
+        persist_run_artifacts(final_state)
+        final_payload = json.loads(_serialize_state(final_state))
+        yield (
+            _render_progress_html(final_payload),
+            _render_metrics_html(final_payload),
+            _render_activity_html(final_payload),
+            final_payload.get("log") or "Recovered memoir complete.",
+            final_payload.get("life_title") or "The Life Where I Turned",
+            final_payload.get("life_summary") or "A memoir of the choice that kept unfolding.",
+            final_payload.get("transcription") or "",
+            _runtime_markdown(),
+            _render_insights_html(final_payload),
+            _build_narrative_markdown(final_payload),
+            _timeline_markdown(final_payload.get("timeline") or []),
+            _build_gallery_items(final_payload),
+            _errors_markdown(final_payload.get("errors") or [], final_payload.get("portrait_failures") or []),
+            gr.update(value=_write_temp_html(final_payload.get("scrapbook_html")), visible=bool(final_payload.get("export_ready"))),
+            _saved_runs_markdown(),
+            json.dumps(final_payload, indent=2),
+        )
+    finally:
+        loop.close()
+        asyncio.set_event_loop(None)
 
 
 def _build_demo():
