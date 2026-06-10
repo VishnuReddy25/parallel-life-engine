@@ -381,9 +381,10 @@ body, .gradio-container {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--accent);
+  color: var(--accent) !important;
   font-weight: 700;
   margin-bottom: 10px;
+  opacity: 1 !important;
 }
 
 .ple-title {
@@ -569,8 +570,9 @@ body, .gradio-container {
 
 .ple-footer-note {
   padding: 6px 34px 34px;
-  color: var(--muted);
+  color: #6a584d !important;
   font-size: 13px;
+  opacity: 1 !important;
 }
 
 .ple-dashboard {
@@ -672,18 +674,20 @@ body, .gradio-container {
 
 .ple-stat-card span {
   display: block;
-  color: var(--muted);
+  color: var(--muted) !important;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  opacity: 1 !important;
 }
 
 .ple-stat-card strong {
   display: block;
   margin-top: 8px;
   font-size: 28px;
-  color: var(--ink);
+  color: var(--ink) !important;
   letter-spacing: -0.03em;
+  opacity: 1 !important;
 }
 
 .ple-command-center {
