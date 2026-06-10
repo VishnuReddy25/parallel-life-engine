@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Life Engine Meta Response",
+  "type": "object",
+  "required": ["app_name", "runtime", "features", "saved_runs_count", "runtime_validation"],
+  "properties": {
+    "app_name": { "type": "string" },
+    "runtime": {
+      "type": "object",
+      "required": ["model_provider", "demo_mode", "traces_provider"],
+      "properties": {
+        "model_provider": { "type": "string" },
+        "demo_mode": { "type": "boolean" },
+        "traces_provider": { "type": "string" }
+      }
+    },
+    "features": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "saved_runs_count": { "type": "integer" },
+    "runtime_validation": {
+      "type": "object",
+      "required": ["ok", "issues", "selected_model_provider", "selected_traces_provider"],
+      "properties": {
+        "ok": { "type": "boolean" },
+        "issues": { "type": "array", "items": { "type": "string" } },
+        "selected_model_provider": { "type": "string" },
+        "selected_traces_provider": { "type": "string" }
+      }
+    }
+  }
+}

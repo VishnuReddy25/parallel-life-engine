@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Life Engine Health Response",
+  "type": "object",
+  "required": ["status", "runtime", "validation"],
+  "properties": {
+    "status": { "type": "string" },
+    "runtime": {
+      "type": "object",
+      "required": ["model_provider", "demo_mode", "traces_provider"],
+      "properties": {
+        "model_provider": { "type": "string" },
+        "demo_mode": { "type": "boolean" },
+        "traces_provider": { "type": "string" }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["ok", "issues", "selected_model_provider", "selected_traces_provider"],
+      "properties": {
+        "ok": { "type": "boolean" },
+        "issues": { "type": "array", "items": { "type": "string" } },
+        "selected_model_provider": { "type": "string" },
+        "selected_traces_provider": { "type": "string" }
+      }
+    }
+  }
+}

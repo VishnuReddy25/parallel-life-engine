@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Life Engine Providers Manifest",
+  "type": "object",
+  "required": ["selected", "model_providers", "trace_providers"],
+  "properties": {
+    "selected": {
+      "type": "object",
+      "required": ["model_provider", "traces_provider"],
+      "properties": {
+        "model_provider": { "type": "string" },
+        "traces_provider": { "type": "string" }
+      }
+    },
+    "model_providers": {
+      "type": "object"
+    },
+    "trace_providers": {
+      "type": "object"
+    }
+  }
+}

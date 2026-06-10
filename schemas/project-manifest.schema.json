@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Life Engine Project Manifest",
+  "type": "object",
+  "required": [
+    "name",
+    "status",
+    "runtime_defaults",
+    "features",
+    "endpoints",
+    "submission_artifacts",
+    "remaining_integration_gaps"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "runtime_defaults": {
+      "type": "object",
+      "required": ["model_provider", "demo_mode", "traces_provider"],
+      "properties": {
+        "model_provider": { "type": "string" },
+        "demo_mode": { "type": "boolean" },
+        "traces_provider": { "type": "string" }
+      }
+    },
+    "features": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "method", "purpose"],
+        "properties": {
+          "path": { "type": "string" },
+          "method": { "type": "string" },
+          "purpose": { "type": "string" }
+        }
+      }
+    },
+    "submission_artifacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "remaining_integration_gaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

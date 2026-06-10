@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Life Engine Runtime Validation",
+  "type": "object",
+  "required": ["ok", "issues", "selected_model_provider", "selected_traces_provider"],
+  "properties": {
+    "ok": { "type": "boolean" },
+    "issues": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "selected_model_provider": { "type": "string" },
+    "selected_traces_provider": { "type": "string" }
+  }
+}

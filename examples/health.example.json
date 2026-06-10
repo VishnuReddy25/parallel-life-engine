@@ -1,0 +1,14 @@
+{
+  "status": "ok",
+  "runtime": {
+    "model_provider": "mock",
+    "demo_mode": true,
+    "traces_provider": "local"
+  },
+  "validation": {
+    "ok": true,
+    "issues": [],
+    "selected_model_provider": "mock",
+    "selected_traces_provider": "local"
+  }
+}

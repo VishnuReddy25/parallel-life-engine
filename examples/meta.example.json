@@ -1,0 +1,24 @@
+{
+  "app_name": "Parallel Life Engine",
+  "runtime": {
+    "model_provider": "mock",
+    "demo_mode": true,
+    "traces_provider": "local"
+  },
+  "features": [
+    "typed_fork_input",
+    "voice_fork_input",
+    "progressive_narrative_reveal",
+    "progressive_portrait_reveal",
+    "exportable_keepsake",
+    "saved_run_replay",
+    "runtime_diagnostics"
+  ],
+  "saved_runs_count": 20,
+  "runtime_validation": {
+    "ok": true,
+    "issues": [],
+    "selected_model_provider": "mock",
+    "selected_traces_provider": "local"
+  }
+}

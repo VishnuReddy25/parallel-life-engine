@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parallel Life Engine</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Build Small 2026</p>
+        <h1>A machine for mourning the lives you never lived.</h1>
+        <p class="hero-copy">
+          Upload one portrait. Whisper one fork in the road. Watch an unlived
+          life assemble itself into a scrapbook of scenes, regrets, and keepsakes.
+        </p>
+      </header>
+
+      <section class="composer">
+        <label class="field">
+          <span>Portrait Photo</span>
+          <input id="photo-input" type="file" accept="image/*" />
+        </label>
+        <div class="voice-stack">
+          <div class="voice-controls">
+            <button id="record-button" type="button" class="secondary-button">
+              Record Fork
+            </button>
+            <span id="recording-status" class="recording-status">No voice note yet.</span>
+          </div>
+          <audio id="audio-preview" controls hidden></audio>
+        </div>
+        <label class="field">
+          <span>Life Fork</span>
+          <textarea
+            id="fork-input"
+            rows="3"
+            placeholder="What if I had moved to Tokyo at 22?"
+          ></textarea>
+        </label>
+        <button id="generate-button" type="button">Generate My Parallel Life</button>
+      </section>
+
+      <section class="scenario-panel">
+        <div class="scenario-copy">
+          <p class="section-label">Starter Forks</p>
+          <h2>Demo-ready turns in the road</h2>
+          <p class="artifact-summary">
+            Use one of these if you want the strongest version of the experience
+            without improvising a prompt on the spot.
+          </p>
+        </div>
+        <div id="scenario-list" class="scenario-list"></div>
+      </section>
+
+      <section class="runtime-panel">
+        <div>
+          <p class="section-label">Runtime Mode</p>
+          <h2>Current deployment wiring</h2>
+        </div>
+        <div class="runtime-panel-body">
+          <div id="runtime-badges" class="runtime-badges"></div>
+          <div id="runtime-validation" class="runtime-validation"></div>
+        </div>
+      </section>
+
+      <section class="status-panel">
+        <div>
+          <p class="section-label">Reconstruction Log</p>
+          <p id="status-log">Waiting for your first impossible decision.</p>
+        </div>
+        <div id="decade-nav" class="decade-nav" aria-live="polite"></div>
+      </section>
+
+      <section class="artifact-intro" id="artifact-intro" hidden>
+        <p class="section-label">Recovered Memoir</p>
+        <h2 id="artifact-title"></h2>
+        <p id="artifact-summary" class="artifact-summary"></p>
+        <p id="transcription-note" class="transcription-note"></p>
+        <p id="trace-note" class="trace-note"></p>
+      </section>
+
+      <section class="trace-panel">
+        <div>
+          <p class="section-label">Timeline Threads</p>
+          <div id="timeline-notes" class="timeline-notes"></div>
+        </div>
+        <div>
+          <p class="section-label">Fault Lines</p>
+          <ul id="error-list" class="error-list"></ul>
+        </div>
+      </section>
+
+      <section class="gallery-panel">
+        <div class="gallery-header">
+          <div>
+            <p class="section-label">Replay Shelf</p>
+            <h2>Previously recovered lives</h2>
+          </div>
+        </div>
+        <div id="saved-runs" class="saved-runs"></div>
+      </section>
+
+      <main id="timeline" class="timeline" aria-live="polite"></main>
+
+      <section class="export-panel">
+        <button id="export-button" type="button" hidden>Export Keepsake</button>
+      </section>
+    </div>
+
+    <script>
+      window.__SCRAPBOOK_TEMPLATE__ = {{PAGES_DATA}};
+      window.__SAVED_RUNS__ = {{SAVED_RUNS}};
+      window.__RUNTIME_INFO__ = {{RUNTIME_INFO}};
+      window.__APP_META__ = {{APP_META}};
+    </script>
+    <script src="/app.js"></script>
+  </body>
+</html>

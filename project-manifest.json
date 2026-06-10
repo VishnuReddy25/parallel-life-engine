@@ -1,0 +1,68 @@
+{
+  "name": "Parallel Life Engine",
+  "status": "gradio_space_ready_scaffold",
+  "runtime_defaults": {
+    "model_provider": "mock",
+    "demo_mode": true,
+    "traces_provider": "local"
+  },
+  "deployment_target": {
+    "platform": "huggingface_spaces",
+    "space_id": "build-small-hackathon/parallel-life-engine",
+    "space_url": "https://huggingface.co/spaces/build-small-hackathon/parallel-life-engine",
+    "sdk": "gradio"
+  },
+  "features": [
+    "typed_fork_input",
+    "voice_fork_input",
+    "starter_fork_scenarios",
+    "progressive_narrative_reveal",
+    "progressive_portrait_reveal",
+    "exportable_keepsake_html",
+    "saved_run_replay_shelf",
+    "runtime_diagnostics_panel",
+    "gradio_blocks_ui",
+    "health_endpoint",
+    "metadata_endpoint"
+  ],
+  "endpoints": [
+    {
+      "path": "/run",
+      "method": "POST",
+      "purpose": "stream generation snapshots"
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "purpose": "runtime health and mode summary"
+    },
+    {
+      "path": "/meta",
+      "method": "GET",
+      "purpose": "app metadata and saved-run count"
+    },
+    {
+      "path": "/providers",
+      "method": "GET",
+      "purpose": "provider capability and readiness manifest"
+    },
+    {
+      "path": "/runs/{trace_id}",
+      "method": "GET",
+      "purpose": "serve saved keepsake replay"
+    }
+  ],
+  "submission_artifacts": [
+    "SPACE_README.md",
+    "docs/demo-script.md",
+    "docs/judge-brief.md",
+    "docs/submission-checklist.md",
+    "docs/artifact-index.md",
+    "docs/integration-map.md"
+  ],
+  "remaining_integration_gaps": [
+    "validate exact local model loading compatibility on the target Hugging Face Space hardware",
+    "replace local trace persistence with hosted trace upload/persistence",
+    "tune the final off-grid model stack for the chosen Space tier"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "selected": {
+    "model_provider": "mock",
+    "traces_provider": "local"
+  },
+  "model_providers": {
+    "mock": {
+      "implemented": true,
+      "requires_env": [],
+      "notes": "Fully local demo-mode provider stack."
+    },
+    "hf": {
+      "implemented": false,
+      "requires_env": [
+        "HF_TOKEN",
+        "PLE_HF_SPACE_ID"
+      ],
+      "notes": "Target branch for Hugging Face-backed model/runtime integration."
+    }
+  },
+  "trace_providers": {
+    "local": {
+      "implemented": true,
+      "requires_env": [],
+      "notes": "Filesystem-backed run artifacts under artifacts/runs/."
+    },
+    "hosted": {
+      "implemented": false,
+      "provider_key": "hosted",
+      "requires_env": [
+        "HF_TOKEN",
+        "PLE_HF_TRACE_DATASET"
+      ],
+      "configured_env": {
+        "HF_TOKEN": false,
+        "PLE_HF_TRACE_DATASET": false
+      },
+      "missing_env": [
+        "HF_TOKEN",
+        "PLE_HF_TRACE_DATASET"
+      ]
+    }
+  }
+}
