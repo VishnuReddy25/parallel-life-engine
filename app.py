@@ -27,7 +27,12 @@ except ModuleNotFoundError:  # pragma: no cover - depends on local environment
 try:
     import spaces
 except ModuleNotFoundError:  # pragma: no cover - depends on local environment
-    spaces = None
+    class _SpacesShim:
+        @staticmethod
+        def GPU(fn):
+            return fn
+
+    spaces = _SpacesShim()
 
 try:
     from fastapi import FastAPI, File, Form, UploadFile
@@ -35,15 +40,6 @@ try:
 except ModuleNotFoundError:  # pragma: no cover - depends on local environment
     FastAPI = None
     File = Form = UploadFile = None
-
-
-def _gpu_decorator():
-    if spaces is None:
-        def passthrough(fn):
-            return fn
-
-        return passthrough
-    return spaces.GPU
 
 
 def _serialize_state(state: LifeState) -> str:
@@ -389,7 +385,7 @@ HERO_HTML = """
 """
 
 
-@_gpu_decorator()
+@spaces.GPU
 async def _run_for_gradio(photo: Image.Image | None, audio_path: str | None, fork_text: str | None):
     audio_bytes = Path(audio_path).read_bytes() if audio_path else None
     state = LifeState(
