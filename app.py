@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import base64
 import json
+import os
 import tempfile
 from io import BytesIO
 from pathlib import Path
@@ -385,6 +386,13 @@ HERO_HTML = """
 """
 
 
+SPACE_THEME = gr.themes.Soft(
+    primary_hue="amber",
+    secondary_hue="rose",
+    neutral_hue="stone",
+) if gr is not None else None
+
+
 @spaces.GPU
 async def _run_for_gradio(photo: Image.Image | None, audio_path: str | None, fork_text: str | None):
     audio_bytes = Path(audio_path).read_bytes() if audio_path else None
@@ -544,47 +552,12 @@ def _build_demo():
 
 
 demo = _build_demo()
-
-if FastAPI is not None:
-    app = FastAPI(title="Parallel Life Engine")
-
-    @app.post("/run")
-    async def run(
-        photo: UploadFile | None = File(default=None),
-        audio: UploadFile | None = File(default=None),
-        fork_text: str | None = Form(default=None),
-    ):
-        return StreamingResponse(stream_run(photo, audio, fork_text), media_type="application/x-ndjson")
+app = demo
 
 
-    @app.get("/runs/{trace_id}")
-    async def replay_run(trace_id: str):
-        keepsake_path = get_keepsake_path(trace_id)
-        if keepsake_path is None:
-            return HTMLResponse("Run not found", status_code=404)
-        return FileResponse(keepsake_path)
-
-
-    @app.get("/health")
-    async def health():
-        return {
-            "status": "ok",
-            "runtime": _app_metadata()["runtime"],
-            "validation": _app_metadata()["runtime_validation"],
-        }
-
-
-    @app.get("/meta")
-    async def meta():
-        return _app_metadata()
-
-
-    @app.get("/providers")
-    async def providers():
-        return get_provider_manifest()
-
-
-    if gr is not None:
-        app = gr.mount_gradio_app(app, demo, path="/")
-else:  # pragma: no cover - depends on local environment
-    app = None
+if __name__ == "__main__" and demo is not None:  # pragma: no cover - runtime entrypoint
+    demo.launch(
+        server_name="0.0.0.0",
+        server_port=int(os.getenv("PORT", "7860")),
+        theme=SPACE_THEME,
+    )
