@@ -25,11 +25,25 @@ except ModuleNotFoundError:  # pragma: no cover - depends on local environment
     gr = None
 
 try:
+    import spaces
+except ModuleNotFoundError:  # pragma: no cover - depends on local environment
+    spaces = None
+
+try:
     from fastapi import FastAPI, File, Form, UploadFile
     from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 except ModuleNotFoundError:  # pragma: no cover - depends on local environment
     FastAPI = None
     File = Form = UploadFile = None
+
+
+def _gpu_decorator():
+    if spaces is None:
+        def passthrough(fn):
+            return fn
+
+        return passthrough
+    return spaces.GPU
 
 
 def _serialize_state(state: LifeState) -> str:
@@ -375,6 +389,7 @@ HERO_HTML = """
 """
 
 
+@_gpu_decorator()
 async def _run_for_gradio(photo: Image.Image | None, audio_path: str | None, fork_text: str | None):
     audio_bytes = Path(audio_path).read_bytes() if audio_path else None
     state = LifeState(
@@ -421,13 +436,8 @@ def _build_demo():
     if gr is None:
         return None
 
-    theme = gr.themes.Soft(
-        primary_hue="amber",
-        secondary_hue="rose",
-        neutral_hue="stone",
-    )
-
-    with gr.Blocks(theme=theme, title="Parallel Life Engine", css=CUSTOM_CSS) as demo:
+    with gr.Blocks(title="Parallel Life Engine") as demo:
+        gr.HTML(f"<style>{CUSTOM_CSS}</style>")
         with gr.Column(elem_id="ple-shell"):
             gr.HTML(HERO_HTML)
 
